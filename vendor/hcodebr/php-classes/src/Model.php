@@ -36,7 +36,7 @@ class Model {
 
 
 
-	public function getValues($data = array())
+	public function getValues()
 	{
 		return $this->values;
 	}
