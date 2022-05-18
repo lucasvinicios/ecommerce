@@ -27,7 +27,7 @@ $app->get("/categories/:idcategory", function($idcategory){
 
 	$pages = [];
 
-	for ($i=1; $i < $pagination['pages']; $i++) { 
+	for ($i=1; $i <= $pagination['pages']; $i++) { 
 		array_push($pages, [
 			'link'=>'/categories/' . $category->getidcategory() . '?page=' . $i,
 			'page'=>$i
@@ -41,6 +41,20 @@ $app->get("/categories/:idcategory", function($idcategory){
 		'products' => $pagination["data"],
 		'pages'    => $pages
 
+	]);
+});
+
+$app->get("/products/:desurl", function($desurl){
+
+	$product = new Product();
+
+	$product->getFromURL($desurl);
+
+	$page = new Page();
+
+	$page->setTpl("product-detail", [
+		'product'=>$product->getValues(),
+		'categories'=>$product->getCategories()
 	]);
 });
 
