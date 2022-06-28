@@ -146,6 +146,10 @@ class User extends Model {
 	{
 		$sql = new Sql();
 
+		if ( $this->getnrphone() == '' ) {
+        $this->setnrphone( null );
+		}
+
 		$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
 			":desperson" => utf8_decode($this->getdesperson()),
 			":deslogin" => $this->getdeslogin(),
