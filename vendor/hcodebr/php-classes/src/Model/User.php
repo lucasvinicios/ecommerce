@@ -13,6 +13,7 @@ class User extends Model {
 	const SECRET_IV = "HcodePhp7_Secret_IV";
 	const ERROR = "UserError";
 	const ERROR_REGISTER = "UserErrorRegister";
+	const SUCCESS = "UserSuccess";
 
 
 	protected $fields = [
@@ -174,7 +175,9 @@ class User extends Model {
 			":inadmin" => $this->getinadmin()
 		));
 
-		$this->setData($results[0]);
+		return $results;
+
+		$this->setData($results);
 	}
 
 	public function delete()
@@ -320,6 +323,28 @@ class User extends Model {
 	{
 		$_SESSION[User::ERROR] = NULL;
 	}
+
+	public static function setSuccess($msg)
+	{
+
+		$_SESSION[User::SUCCESS] = $msg;
+
+	}
+
+	public static function getSuccess()
+	{
+		$msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+
+		User::clearSuccess();
+
+		return $msg;
+	}
+
+	public static function clearSuccess()
+	{
+		$_SESSION[User::SUCCESS] = NULL;
+	}
+
 
 	public static function setErrorRegister($msg)
 	{
